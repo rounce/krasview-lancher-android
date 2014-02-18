@@ -29,18 +29,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.net.wifi.WifiManager;
 import android.util.Log;
 
 public class Parser{
@@ -102,7 +97,8 @@ public class Parser{
     }
     
     public static HttpResponse post(String address, String id, String msg){
-        String line = null;
+        @SuppressWarnings("unused")
+		String line = null;
         
         DefaultHttpClient httpClient = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost(address);

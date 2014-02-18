@@ -1,13 +1,5 @@
 package ru.krasview.launcher;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -18,8 +10,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.GradientDrawable.Orientation;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
@@ -29,15 +19,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,13 +32,6 @@ public class NewActivity extends Activity {
 	  Market market;
 	  boolean alrUpdate;
 	  boolean waitNetwork;
-	
-	  private final String WF_STAT_DISCONNECT = "отключен";
-	  private final String WF_STAT_CONNECT = "подключен";
-	  private final String WF_STAT_CONNECTING = "подключается";
-	  private final String WF_STAT_NOT_AVALIBLE = "выключен";
-	
-	  private final String WIFI = "Wi-Fi";
 	  
 	  String[] names = {"Телевидение", 
 			  			"Сериалы", 
@@ -82,7 +61,8 @@ public class NewActivity extends Activity {
 	  
 	  
 	    /** Called when the activity is first created. */
-	    @Override
+	    @SuppressWarnings("deprecation")
+		@Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        
@@ -202,6 +182,7 @@ public class NewActivity extends Activity {
 	 private class WiFiReceiver extends BroadcastReceiver
 	 {
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			// TODO Auto-generated method stub

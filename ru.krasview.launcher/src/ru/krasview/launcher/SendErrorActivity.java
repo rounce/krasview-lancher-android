@@ -17,13 +17,11 @@ public class SendErrorActivity extends Activity {
         final String stacktrace=intent.getStringExtra("stacktrace");
         Log.i("SendErrorActivity", "Активити запущена \n"+stacktrace);
         Parser.setContext(this);
-        //Parser.getXML("http://tv.kraslan.ru/api/tv/bug", "text="+stacktrace);
         Thread t = new Thread(new Runnable(){
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
-				//Parser.getXML("http://tv.kraslan.ru/api/tv/get.xml");
 				Parser.getXML("http://tv.kraslan.ru/api/tv/bug", "text="+URLEncoder.encode(stacktrace));
 			}
         	

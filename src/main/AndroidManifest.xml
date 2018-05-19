@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ru.krasview.launcher"
     android:versionCode="6"
-    android:versionName="6.0" >
+    android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="27" />
+        android:targetSdkVersion="22" />
      <uses-permission 
         android:name="android.permission.INTERNET" />
     <uses-permission 

@@ -83,7 +83,7 @@ public class MainActivity extends Activity {
 			actual = Parser.XMLfromString(result);
 			actual.normalizeDocument();
 			Node node0 = actual.getElementsByTagName("application").item(1);
-			Log.i(TAG, "" + Parser.getValue(market.KEY_PACKAGE, node0) + " "
+			Log.i(TAG, "Получена версия: " + Parser.getValue(market.KEY_PACKAGE, node0) + " "
 					+ Parser.getValue(market.KEY_VERSION_CODE, node0));
 			if (!market.packageInstall(Parser.getValue(market.KEY_PACKAGE, node0)) || market.checkNewVersion(Parser.getValue(market.KEY_PACKAGE, node0), Integer.parseInt(Parser.getValue(market.KEY_VERSION_CODE, node0)))) {
 				try {

@@ -28,38 +28,39 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class NewActivity extends Activity {
-	
 	  Market market;
 	  boolean alrUpdate;
 	  boolean waitNetwork;
 	  
 	  String[] names = {"Телевидение", 
-			  			"Сериалы", 
+			  			"Сериалы",
 			  			"Аниме",
+			  			"Фильмы",
 			  			"Настройки"};
 	  String[] intents = {	"krasview.intent.action.LAUNCH",
 			  				"krasview.intent.action.LAUNCH",
 			  				"krasview.intent.action.LAUNCH",
+			  				"krasview.intent.action.LAUNCH",
 			  				Settings.ACTION_SETTINGS};
-	  int[] images = {	R.drawable.tv, 
-			  			R.drawable.series, 
-			  			R.drawable.anime, 
+	  int[] images = {	R.drawable.tv,
+			  			R.drawable.series,
+			  			R.drawable.anime,
+			  			R.drawable.series,
 			  			R.drawable.settings} ;
 	  String[] addresses = {
 			  "http://tv.kraslan.ru/api/tv/get.xml",
 			  "http://tv.kraslan.ru/api/series/submenu.xml",
-			  "http://tv.kraslan.ru/api/anime/submenu.xml"
+			  "http://tv.kraslan.ru/api/anime/submenu.xml",
+			  "http://tv.kraslan.ru/api/movie/submenu.xml"
 	  };
-	  
+
 	  private IntentFilter mNetworkStateChangedFilter;
 	  private BroadcastReceiver mNetworkStateIntentReceiver;
-	  
+
 	  GradientDrawable grad;
 	  View view;
-	 
+
 	  LinearLayout mainLayout;
-	  
-	  
 	    /** Called when the activity is first created. */
 	    @SuppressWarnings("deprecation")
 		@Override
@@ -98,18 +99,17 @@ public class NewActivity extends Activity {
 	        		view.requestFocus();
 	        	}
 	        }
-	        
-	        
+
 	        alrUpdate = false;
 	        waitNetwork = false;
 	        Parser.setContext(this);
-	        market = new Market(this);			
-	        
+	        market = new Market(this);
+
 	        mNetworkStateChangedFilter = new IntentFilter();
 			mNetworkStateChangedFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
 
 			mNetworkStateIntentReceiver = new WiFiReceiver();
-			
+
 			boolean a = checkWiFi();
 	    	if(a&&!alrUpdate){
 	    		alrUpdate=true;
@@ -118,14 +118,11 @@ public class NewActivity extends Activity {
 	    	}else if(!a){
 	    		waitNetwork = true;
 	    	}
-			
 	    }
-	    
-	    public View.OnClickListener listener = new View.OnClickListener(){
 
+	    public View.OnClickListener listener = new View.OnClickListener(){
 			@Override
 			public void onClick(View view) {
-				// TODO Auto-generated method stub
 				int a = (Integer) view.getTag();
 				if (a<3 &&!market.packageInstall("ru.krasview.tv")){
 					Toast.makeText(NewActivity.this, "Приложение Телевидение не установлено \nПроверьте наличие обновлений(Меню->Обновление)", Toast.LENGTH_LONG).show();
@@ -138,24 +135,22 @@ public class NewActivity extends Activity {
 				}
 				startActivity(intent);
 			}
-	    	
 	    };
-	    
+
 	    public void onItemClick(AdapterView<?> arg0, View arg1,
 				int arg2, long arg3) {
 				if((arg2 == 0||arg2 == 1)&&!market.packageInstall("ru.krasview.tv")){
 					Toast.makeText(NewActivity.this, "Приложение Телевидение не установлено \nПроверьте наличие обновлений(Меню->Обновление)", Toast.LENGTH_LONG).show();
 					return;
 				}
-			    	Intent intent = new Intent(intents[arg2]);
+				Intent intent = new Intent(intents[arg2]);
 					startActivity(intent);}
-	    
-	    @Override 
+
+	    @Override
 	    public void onStart(){
 	    	super.onStart();
-	    	
 	    }
-	    
+
 	    @Override
 	    public void onResume(){
 	    	super.onResume();
@@ -177,11 +172,9 @@ public class NewActivity extends Activity {
 		    } );
 	    	
 	    }
-	    
 
 	 private class WiFiReceiver extends BroadcastReceiver
 	 {
-
 		@SuppressWarnings("deprecation")
 		@Override
 		public void onReceive(Context context, Intent intent) {
@@ -196,13 +189,13 @@ public class NewActivity extends Activity {
 			    }
 			}
 		}}
-	    
+
 	 private boolean checkWiFi(){
 		 ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		    NetworkInfo netInfo = cm.getActiveNetworkInfo();
 		    return checkWiFi(netInfo);
 	 }
-	 
+
 	 private boolean checkWiFi(NetworkInfo info){
 
 		 if(info == null){
@@ -228,7 +221,7 @@ public class NewActivity extends Activity {
 			 return false;
 		 }
 	 }
-	 
+
 	 @Override
 		public boolean onCreateOptionsMenu(Menu menu) {
 			// Inflate the menu; this adds items to the action bar if it is present.
@@ -253,7 +246,7 @@ public class NewActivity extends Activity {
 		        return super.onOptionsItemSelected(item);
 		    }
 		}
-	 
+
 	 @Override
 	    public boolean dispatchKeyEvent (KeyEvent event){
 		 if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT&&event.getAction() == KeyEvent.ACTION_UP){
@@ -261,5 +254,4 @@ public class NewActivity extends Activity {
 		 }
 		 return super.dispatchKeyEvent(event);
 	 }
-	 
 	}

@@ -1,0 +1,11 @@
+.idea
+.gradle
+*.iml
+*.jks
+*.apk
+.DS_Store
+out
+gen/
+build/
+kvSecret/
+signing/

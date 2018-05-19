@@ -16,13 +16,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class UpdateActivity extends Activity {
-	
 	ProgressBar pb;
 	TextView tv;
 	Button but;
-	
+
 	Market market;
-	
+
 	 @Override
 	    public void onCreate(Bundle savedInstanceState){
 		 super.onCreate(savedInstanceState);
@@ -38,18 +37,16 @@ public class UpdateActivity extends Activity {
 	 private Handler h = new Handler();
 	 
 	 private class MyAsync extends AsyncTask<Object, Object, Node>{
-
 			@Override
 			protected Node doInBackground(Object... params) {
 				// TODO Auto-generated method stub
-				String result =  Parser.getXML("http://tv.kraslan.ru/api/app/android/actual.xml");			
+				String result = Parser.getXML("http://tv.kraslan.ru/api/app/android/actual.xml");
 				Document actual;
 				actual = Parser.XMLfromString(result);
 				actual.normalizeDocument();
 				
 				Node node0 = actual.getElementsByTagName("application").item(1);
 			    if(!market.packageInstall(Parser.getValue(market.KEY_PACKAGE, node0))||market.checkNewVersion(Parser.getValue(market.KEY_PACKAGE, node0), Integer.parseInt(Parser.getValue(market.KEY_VERSION_CODE, node0)))){
-			    	
 			    	return node0;
 				}else{
 			    	Node node = actual.getElementsByTagName("application").item(0);
@@ -78,7 +75,7 @@ public class UpdateActivity extends Activity {
 					String name = Parser.getValue(market.KEY_PACKAGE, result);
 					if(name.equals("ru.krasview.tv")){
 						name = "Телевидение";
-					}else if(name.equals("ru.krasview.launcher")){
+					} else if(name.equals("ru.krasview.launcher")){
 						name = "ТВ Ланчер";
 					}
 					tv.setText("Найдено обновление для пакета " + name);

@@ -1,0 +1,57 @@
+buildscript {
+    /**
+     * The nested repositories{} block declares that this build uses the
+     * jcenter repository.
+     */
+    repositories {
+        jcenter()
+        google()
+    }
+
+    /**
+     * This block declares a dependency on the 2.3.3 version
+     * of the Gradle plugin for the buildscript.
+     */
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.2'
+    }
+}
+
+apply plugin: 'com.android.application'
+
+allprojects {
+    repositories {
+        mavenCentral()
+        maven { url "https://maven.google.com" }
+        jcenter()
+        google()
+    }
+}
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
+        }
+        debug {
+            debuggable true
+        }
+    }
+
+    useLibrary  'org.apache.http.legacy'
+}
+
+dependencies {
+}
+
+if(project.hasProperty("krasview.signing")
+    && new File(project.property("krasview.signing") + ".gradle").exists()) {
+  apply from: project.property("krasview.signing") + ".gradle";
+}
